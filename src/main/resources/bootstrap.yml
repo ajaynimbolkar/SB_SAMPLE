@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: sb-sample
+  jpa:
+    properties:
+      hibernate:
+        dialect:
+          storage_engine: innodb
+        nodeValue: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: 'false'
+  hikari:
+      idleTimeout: 240000
+      validationTimeout: 5000
+      maximumPoolSize: 200
+      connectionTimeout: 10000
+      maxLifetime: 270000
+      keepaliveTime: 120000
+      minimumIdle: 20
+  datasource:
+      url: jdbc:mysql://127.0.0.1:3306/inventory?autoReconnect=true&useSSL=false
+      username: debezium
+      password: dbz
+      driver: com.mysql.cj.jdbc.Driver  
+
+  kafka:
+    bootstrap-servers: localhost:9093
+    consumer:
+      group-id: console-consumer-52628    
+
+app:
+  topic:
+    ResultTopic: mysql-inventory.inventory.crm_customers
+
+server:
+  port: 8020
+  servlet:
+    context-path: /sb-sample
+
