@@ -84,7 +84,7 @@ TODO: Below step cover only insertion of record record to record synchronization
 
 3. Insert record in crm_customers table then its capture by kafka topic name as "mysql-inventory.inventory.crm_customers" then it call rest api of external system to syn record here "syn_record" table centrally place to managed synchronization.
     
-#Run java
+# Run java:
 1. Clone code from repository given below.
 https://github.com/ajaynimbolkar/SB_SAMPLE
 
@@ -96,7 +96,7 @@ https://github.com/ajaynimbolkar/SB_SAMPLE
 
 4. Once above command exceuted, Your application start.
 
-#Test Case.
+# Test Case:
 Case 1: Sync data from crm to maketing.
     a. Insert record to crm table.
     INSERT INTO inventory.crm_customers
