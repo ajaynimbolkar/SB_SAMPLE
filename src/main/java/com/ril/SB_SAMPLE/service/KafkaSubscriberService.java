@@ -73,7 +73,22 @@ public class KafkaSubscriberService {
             // Log the after node.
             LOGGER.info("Record:: [ {} ]", afterNode);
 
+
             String crmCustomerId = afterNode.path("crm_customer_id").asText().replace("crm_", "");
+
+            SyncRecordModel syncRecordModel1 = syncRecordRepository.findBySyncId("sync-" + crmCustomerId);
+            LOGGER.info("kafka syncRecordModel1 :: [ {} ]", syncRecordModel1);
+            // If sync record is not found then return.
+            if(syncRecordModel1 != null) {
+                String syncId = "sync-" + crmCustomerId;
+                SyncRecordModel updatedSyncRecord = syncRecordRepository.findById(syncId).orElseThrow(() -> new SynDataNotFoundException(ErrorConstant.SYNC_DATA_NOT_FOUND));
+                updatedSyncRecord.setCrmCustomerId("crm_" + crmCustomerId);
+                updatedSyncRecord.setSynStatus("SUCCESS");
+                updatedSyncRecord.setLastSychedAt(new Timestamp(System.currentTimeMillis()));
+                syncRecordRepository.save(updatedSyncRecord);
+                return;
+            }
+
             LOGGER.info("CRM Customer ID :: [ {} ]", crmCustomerId);
             String firstName = afterNode.path("first_name").asText();
             String lastName = afterNode.path("last_name").asText();

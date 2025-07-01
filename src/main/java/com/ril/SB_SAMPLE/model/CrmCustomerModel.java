@@ -15,7 +15,7 @@ import jakarta.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "crm_customer")
+@Table(name = "crm_customers")
 @Entity
 public class CrmCustomerModel {
     @Id
